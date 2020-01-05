@@ -47,13 +47,15 @@ const createNewBlock = (data: string): Block => {
   const newHash = Block.calculateBlockHash(newIndex, previousBlock.hash, newTimestamp, data);
   const newBlock = new Block(newIndex, newHash, previousBlock.hash, newTimestamp, data);
 
+  addBlock(newBlock);
+
   return newBlock;
 };
 
 const getHashForBlock = (block: Block): string =>
   Block.calculateBlockHash(block.index, block.previousHash, block.timestamp, block.data);
 
-const isBlockValid = (candidateBlock: Block, previousblock: Block): blooan => {
+const isBlockValid = (candidateBlock: Block, previousblock: Block): boolean => {
   if (!Block.isValidateBlock(candidateBlock)) {
     return false;
   } else if (previousblock.index + 1 !== candidateBlock.index) {
@@ -72,5 +74,11 @@ const addBlock = (candidateBlock: Block): void => {
     blockchain.push(candidateBlock);
   }
 };
+
+createNewBlock('second Block');
+createNewBlock('third Block');
+createNewBlock('fourth Block');
+
+console.log(blockchain);
 
 export {};
